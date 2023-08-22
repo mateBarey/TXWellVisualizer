@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+    {{ map | safe }}
+<script>
+function onEachFeature(feature, layer) {
+   layer.on('click', function (e) {
+      // get the markers related to this feature
+      var markers = document.querySelectorAll('.marker-' + feature.properties.FID);
+      // loop through and display the markers
+      markers.forEach(function(marker) {
+         marker.style.display = 'block';
+      });
+      var fid = feature.properties.FID;
+      var district = feature.properties.district;
+      var url = "/other_map?FID=" + fid + "&district=" + district;
+      window.location.href = url;
+   });
+}
+</script>
+
+
+</body>
+
+{% endblock %}
